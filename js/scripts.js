@@ -1,5 +1,4 @@
 // Front-End Logic
-
 $(document).ready(function() {
     var newDatabase = new Database();
     $("form#placeForm").submit(function() {
@@ -9,14 +8,21 @@ $(document).ready(function() {
         var userActivities = $("input#userActivities").val();
         var newPlace = new Place(userLocation, userSeason, userActivities);
         newDatabase.addPlace(newPlace);
-        $("#checkboxForm").prepend('<input type="checkbox" name="locName"/> <label for="locName">' + newPlace.location + '</label><br>');
+        $("#checkboxForm").prepend('<input type="checkbox" name="locName"/> <label for="locName">' + newPlace.location + newDatabase.currentId + '</label><br>');
         $("form#placeForm")[0].reset();
+    });
+    $("form#checkboxForm").submit(function() {
+        event.preventDefault();
+        var removeThis = $("input[type=checkbox]");
+        // console.log(removeThis);
+        removeThis.each(function(item) {
+            console.log(item);
+        });
     });
 });
 
 
 // Back-End Logic
-
 function Place(location, season, activities) {
     this.location = location;
     this.season = season;
